@@ -32,7 +32,7 @@ func (g *Grid) Set(s string, x, y int) {
 func (g *Grid) PlaceText(s string, x, y int) {
 	r := []rune(s)
 	for xx, c := range r {
-		g.Set(string(c), x + xx, y)
+		g.Set(string(c), x+xx, y)
 	}
 }
 

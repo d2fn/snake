@@ -26,20 +26,20 @@ const (
 	Right
 )
 
-var directionVecs = map[Dir]vec {
-	Stopped: {  0,  0},
-	Left:    { -1,  0},
-	Down:    {  0,  1},
-	Up:      {  0, -1},
-	Right:   {  1,  0},
+var directionVecs = map[Dir]vec{
+	Stopped: {0, 0},
+	Left:    {-1, 0},
+	Down:    {0, 1},
+	Up:      {0, -1},
+	Right:   {1, 0},
 }
 
-var directionChars = map[Dir]string {
+var directionChars = map[Dir]string{
 	Stopped: "\u25CB",
-	Left: "\u25C0",
-	Down: "\u25BC",
-	Up: "\u25B2",
-	Right: "\u25BA",
+	Left:    "\u25C0",
+	Down:    "\u25BC",
+	Up:      "\u25B2",
+	Right:   "\u25BA",
 }
 
 func (snake *Snake) Velocity() vec {
@@ -121,14 +121,16 @@ func (snake *Snake) Trim(maxLength int) {
 	}
 }
 
-func (snake *Snake) View(g *Grid) {
+func (snake *Snake) View(g *Grid, window *Window) {
 
 	if snake.head != nil {
 		for node := snake.head; node != nil; node = node.next {
 			p := node.p
-			g.Set(tailStyle.Render("\u25E6"), p.x, p.y)
+			pp := window.ToScreen(p)
+			g.Set(tailStyle.Render("\u25E6"), pp.x, pp.y)
 		}
-		snakeHead := snake.head.p
-		g.Set(headStyle.Render(snake.HeadString()), snakeHead.x, snakeHead.y)
+		h := snake.head.p
+		hh := window.ToScreen(h)
+		g.Set(headStyle.Render(snake.HeadString()), hh.x, hh.y)
 	}
 }
